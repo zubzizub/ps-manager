@@ -1,0 +1,17 @@
+{
+  "name": "zubzizub/ps",
+  "authors": [
+    {
+      "name": "Alexey Zubkov",
+      "email": "zubzizub85@gmail.com"
+    }
+  ],
+  "require": {
+    "jaeger/querylist": "^4.2",
+    "ext-json": "*"
+  }
+    ,
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    }
+}
