@@ -51,6 +51,12 @@ class Game
     private Price $priceDiscount;
 
     /**
+     * @var Status
+     * @Mapping\Column(type="game_status", length=16)
+     */
+    private Status $status;
+
+    /**
      * @var string
      * @Mapping\Column(type="string")
      */
@@ -126,6 +132,11 @@ class Game
     public function getPriceDiscount(): Price
     {
         return $this->priceDiscount;
+    }
+
+    public function getStatus(): Status
+    {
+        return $this->status;
     }
 
     /**
