@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Games{% endblock %}
+
+{% block body %}
+    <form action="{{ path('gameUpdateAll') }}" method="post">
+        <button type="submit" class="btn btn-block btn-outline-primary">Update games</button>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Price discount</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for game in games %}
+        <tr>
+            <th scope="row">1</th>
+            <td>{{ game.title }}</td>
+            <td>{{ game.price }}</td>
+            <td>{{ game.price_discount }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

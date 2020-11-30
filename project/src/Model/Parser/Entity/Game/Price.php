@@ -12,7 +12,7 @@ class Price
 
     public function __construct(int $price)
     {
-        Assert::notEmpty($price);
+//        Assert::notEmpty($price);
         $this->price = $price;
     }
 

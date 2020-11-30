@@ -24,7 +24,7 @@ class Game
      * @var string
      * @Mapping\Column(type="string")
      */
-    private string $idPs;
+    private string $externalId;
 
     /**
      * @var string
@@ -45,10 +45,10 @@ class Game
     private Price $price;
 
     /**
-     * @var Price
-     * @Mapping\Column(type="game_price")
+     * @var Price|null
+     * @Mapping\Column(type="game_price", nullable=true)
      */
-    private Price $priceDiscount;
+    private ?Price $priceDiscount;
 
     /**
      * @var Status
@@ -63,7 +63,7 @@ class Game
     private string $version;
 
     /**
-     * @var ?string
+     * @var string|null
      * @Mapping\Column(type="string", nullable=true)
      */
     private ?string $imageUrl;
@@ -76,15 +76,39 @@ class Game
 
     /**
      * @var DateTimeImmutable
-     * @Mapping\Column(type="datetime_immutable", nullable=true, name="create_date")
+     * @Mapping\Column(type="datetime_immutable", name="create_date")
      */
     private DateTimeImmutable $createDate;
 
     /**
-     * @var DateTimeImmutable
+     * @var DateTimeImmutable|null
      * @Mapping\Column(type="datetime_immutable", nullable=true, name="update_date")
      */
-    private DateTimeImmutable $updateDate;
+    private ?DateTimeImmutable $updateDate;
+
+    public function __construct(
+        Id $id,
+        string $externalId,
+        string $title,
+        string $description,
+        Price $price,
+        ?Price $priceDiscount,
+        ?string $imageUrl,
+        DateTimeImmutable $discountEndDate,
+        DateTimeImmutable $createDate
+    ) {
+        $this->id = $id;
+        $this->externalId = $externalId;
+        $this->title = $title;
+        $this->description = $description;
+        $this->version = 'ps4';
+        $this->price = $price;
+        $this->priceDiscount = $priceDiscount;
+        $this->status = Status::active();
+        $this->imageUrl = $imageUrl;
+        $this->discountEndDate = $discountEndDate;
+        $this->createDate = $createDate;
+    }
 
     /**
      * @return Id
@@ -97,9 +121,9 @@ class Game
     /**
      * @return string
      */
-    public function getIdPs(): string
+    public function getExternalId(): string
     {
-        return $this->idPs;
+        return $this->externalId;
     }
 
     /**
@@ -119,9 +143,9 @@ class Game
     }
 
     /**
-     * @return mixed
+     * @return Price
      */
-    public function getPrice()
+    public function getPrice(): Price
     {
         return $this->price;
     }
@@ -156,9 +180,9 @@ class Game
     }
 
     /**
-     * @return DateTimeImmutable
+     * @return DateTimeImmutable|null
      */
-    public function getDiscountEndDate(): DateTimeImmutable
+    public function getDiscountEndDate(): ?DateTimeImmutable
     {
         return $this->discountEndDate;
     }
@@ -172,10 +196,66 @@ class Game
     }
 
     /**
-     * @return DateTimeImmutable
+     * @return DateTimeImmutable|null
      */
-    public function getUpdateDate(): DateTimeImmutable
+    public function getUpdateDate(): ?DateTimeImmutable
     {
         return $this->updateDate;
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @param Price $price
+     */
+    public function setPrice(Price $price): void
+    {
+        $this->price = $price;
+    }
+
+    /**
+     * @param Price|null $priceDiscount
+     */
+    public function setPriceDiscount(?Price $priceDiscount): void
+    {
+        $this->priceDiscount = $priceDiscount;
+    }
+
+    /**
+     * @param Status $status
+     */
+    public function setStatus(Status $status): void
+    {
+        $this->status = $status;
+    }
+
+    /**
+     * @param string|null $imageUrl
+     */
+    public function setImageUrl(?string $imageUrl): void
+    {
+        $this->imageUrl = $imageUrl;
+    }
+
+    /**
+     * @param DateTimeImmutable $discountEndDate
+     */
+    public function setDiscountEndDate(DateTimeImmutable $discountEndDate): void
+    {
+        $this->discountEndDate = $discountEndDate;
     }
 }
