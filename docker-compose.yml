@@ -14,6 +14,10 @@ services:
         build:
             context: ./docker/development
             dockerfile: php-fpm.docker
+        environment:
+            APP_DEBUG: 1
+            APP_ENV: dev
+            PHP_IDE_CONFIG: serverName=API
         volumes:
             - ./project:/app
         depends_on:
@@ -22,6 +26,10 @@ services:
         build:
             context: ./docker/development
             dockerfile: php-cli.docker
+        environment:
+            APP_DEBUG: 1
+            APP_ENV: dev
+            PHP_IDE_CONFIG: serverName=API
         volumes:
             - ./project:/app
             - composer:/root/.composer/cache

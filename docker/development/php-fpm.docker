@@ -15,4 +15,9 @@ RUN apk add --no-cache postgresql-dev bash coreutils \
 
 RUN apk add --no-cache unzip
 
+COPY ./php/conf.d /usr/local/etc/php/conf.d
+
 WORKDIR /app
+
+COPY ./entrypoint.sh /usr/local/bin/docker-php-entrypoint
+RUN chmod +x /usr/local/bin/docker-php-entrypoint
