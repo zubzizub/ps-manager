@@ -22,6 +22,9 @@ docker-build:
 composer-install:
 	docker-compose run --rm php-cli composer install
 
+permission:
+	docker-compose run --rm php-fpm chown -R 1000:www-data .
+
 php-in:
 	docker-compose exec php-fpm bash
 
@@ -36,3 +39,9 @@ migrations-diff:
 
 migrations-validate:
 	docker-compose run --rm php-cli php bin/console doctrine:schema:validate
+
+assets-install:
+	docker-compose run --rm node yarn install
+
+assets-dev:
+	docker-compose run --rm node npm run dev
