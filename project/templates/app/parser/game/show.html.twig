@@ -16,14 +16,20 @@
         </tr>
         </thead>
         <tbody>
-        {% for game in games %}
-        <tr>
-            <th scope="row">1</th>
-            <td>{{ game.title }}</td>
-            <td>{{ game.price }}</td>
-            <td>{{ game.price_discount }}</td>
-        </tr>
-        {% endfor %}
+        {% if games %}
+            {% for game in games %}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{ game.title }}</td>
+                    <td>{{ game.price }}</td>
+                    <td>{{ game.price_discount }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td colspan="4">Games not added yet.</td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
 
