@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Parser\Entity\Game;
+namespace App\Domain\Store\Entity\Game;
 
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping;
 
 /**
  * @Mapping\Entity
- * @Mapping\Table(name="parser_games")
+ * @Mapping\Table(name="store_games")
  */
 class Game
 {

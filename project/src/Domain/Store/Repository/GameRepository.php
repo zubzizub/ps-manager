@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Model\Parser\Repository;
+namespace App\Domain\Store\Repository;
 
-use App\Model\Parser\Entity\Game\Game;
-use App\Model\Parser\Entity\Game\Id;
+use App\Domain\Store\Entity\Game\Game;
+use App\Domain\Store\Entity\Game\Id;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\ORM\EntityRepository;

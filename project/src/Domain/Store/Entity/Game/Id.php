@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Parser\Entity\Game;
+namespace App\Domain\Store\Entity\Game;
 
 use Ramsey\Uuid\Uuid;
 use Webmozart\Assert\Assert;

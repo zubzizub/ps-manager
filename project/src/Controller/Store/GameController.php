@@ -2,19 +2,20 @@
 
 declare(strict_types=1);
 
-namespace App\Controller\Parser;
+namespace App\Controller\Store;
 
-use App\Model\Flusher;
-use App\Model\Parser\Entity\Game\Price;
-use App\Model\Parser\Repository\GameRepository;
+use App\Domain\Flusher;
+use App\Domain\Store\Entity\Game\Price;
+use App\Domain\Store\Repository\GameRepository;
 use App\Components\Parser\ParserInterface;
-use App\Model\Parser\UseCase\Game\Create\Command;
-use App\Model\Parser\UseCase\Game\Create\Form;
-use App\Model\Parser\UseCase\Game\Create\Handler;
-use App\ReadModel\Parser\Game\GameFetcher;
+use App\Domain\Store\UseCase\Game\Create\Command;
+use App\Domain\Store\UseCase\Game\Create\Form;
+use App\Domain\Store\UseCase\Game\Create\Handler;
+use App\ReadModel\Store\Game\GameFetcher;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
+use DomainException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -31,7 +32,7 @@ class GameController extends AbstractController
     public function index(GameFetcher $fetcher): Response
     {
         $games = $fetcher->all();
-        return $this->render('app/parser/game/show.html.twig', compact('games'));
+        return $this->render('app/store/game/show.html.twig', compact('games'));
     }
 
     /**
@@ -53,12 +54,12 @@ class GameController extends AbstractController
             try {
                 $handler->handle($command);
                 return $this->redirectToRoute('home');
-            } catch (\DomainException $exception) {
+            } catch (DomainException $exception) {
                 $this->addFlash('error', $exception->getMessage());
             }
         }
 
-        return $this->render('app/parser/game/create.html.twig', ['form' => $form->createView()]);
+        return $this->render('app/store/game/create.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -104,6 +105,6 @@ class GameController extends AbstractController
     public function showAll(ParserInterface $parser): Response
     {
         $games = $parser->getAllGames();
-        return $this->render('app/parser/game/show-all.html.twig', compact('games'));
+        return $this->render('app/store/game/show-all.html.twig', compact('games'));
     }
 }

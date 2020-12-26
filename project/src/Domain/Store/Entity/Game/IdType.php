@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Parser\Entity\Game;
+namespace App\Domain\Store\Entity\Game;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\IntegerType;
+use Doctrine\DBAL\Types\GuidType;
 
-class PriceType extends IntegerType
+class IdType extends GuidType
 {
-    public const NAME = 'game_price';
+    public const NAME = 'game_id';
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value instanceof Price ? $value->getPrice() : $value;
+        return $value instanceof Id ? $value->getId() : $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        return !empty($value) ? new Price($value) : null;
+        return !empty($value) ? new Id($value) : null;
     }
 
     public function getName(): string

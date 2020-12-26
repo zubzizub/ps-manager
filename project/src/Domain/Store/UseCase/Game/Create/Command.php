@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Parser\UseCase\Game\Create;
+namespace App\Domain\Store\UseCase\Game\Create;
 
 use Symfony\Component\Validator\Constraints as Validation;
 

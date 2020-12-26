@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Model\Parser\Entity\Game;
+namespace App\Domain\Store\Entity\Game;
 
 class PriceDiscount
 {

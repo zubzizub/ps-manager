@@ -20,14 +20,14 @@ final class Version20201107185426 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE parser_games ADD status VARCHAR(16) NOT NULL');
-        $this->addSql('COMMENT ON COLUMN parser_games.status IS \'(DC2Type:game_status)\'');
+        $this->addSql('ALTER TABLE store_games ADD status VARCHAR(16) NOT NULL');
+        $this->addSql('COMMENT ON COLUMN store_games.status IS \'(DC2Type:game_status)\'');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SCHEMA public');
-        $this->addSql('ALTER TABLE parser_games DROP status');
+        $this->addSql('ALTER TABLE store_games DROP status');
     }
 }

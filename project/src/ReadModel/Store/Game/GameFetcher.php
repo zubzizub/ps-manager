@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\ReadModel\Parser\Game;
+namespace App\ReadModel\Store\Game;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
@@ -24,7 +24,7 @@ class GameFetcher
     {
         $stmt = $this->connection->createQueryBuilder()
             ->select('*')
-            ->from('parser_games')
+            ->from('store_games')
             ->execute();
 
         return $stmt->fetchAll();
@@ -38,7 +38,7 @@ class GameFetcher
     {
         $stmt = $this->connection->createQueryBuilder()
             ->select('external_id')
-            ->from('parser_games')
+            ->from('store_games')
             ->execute();
 
         return $stmt->fetchAll(\PDO::FETCH_COLUMN);

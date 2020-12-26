@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace App\Model\Parser\Entity\Game;
+namespace App\Domain\Store\Entity\Game;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
-use Doctrine\DBAL\Types\GuidType;
+use Doctrine\DBAL\Types\StringType;
 
-class IdType extends GuidType
+class StatusType extends StringType
 {
-    public const NAME = 'game_id';
+    public const NAME = 'game_status';
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value instanceof Id ? $value->getId() : $value;
+        return $value instanceof Status ? $value->getName() : $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform): ?Status
     {
-        return !empty($value) ? new Id($value) : null;
+        return !empty($value) ? new Status($value) : null;
     }
 
     public function getName(): string

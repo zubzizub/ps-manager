@@ -28,6 +28,9 @@ permission:
 php-in:
 	docker-compose exec php-fpm bash
 
+cache-clear:
+	docker-compose run --rm php-cli php bin/console cache:clear
+
 project-test:
 	docker-compose run --rm php-cli php bin/phpunit
 

@@ -9,9 +9,9 @@ doctrine:
             collate: utf8mb4_unicode_ci
 
         types:
-            game_id: 'App\Model\Parser\Entity\Game\IdType'
-            game_price: 'App\Model\Parser\Entity\Game\PriceType'
-            game_status: 'App\Model\Parser\Entity\Game\StatusType'
+            game_id: 'App\Domain\Store\Entity\Game\IdType'
+            game_price: 'App\Domain\Store\Entity\Game\PriceType'
+            game_status: 'App\Domain\Store\Entity\Game\StatusType'
 
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
@@ -24,12 +24,12 @@ doctrine:
             User:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Model/User/Entity'
-                prefix: 'App\Model\User\Entity'
+                dir: '%kernel.project_dir%/src/Domain/User/Entity'
+                prefix: 'App\Domain\User\Entity'
                 alias: User
             Parser:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Model/Parser/Entity'
-                prefix: 'App\Model\Parser\Entity'
+                dir: '%kernel.project_dir%/src/Domain/Store/Entity'
+                prefix: 'App\Domain\Store\Entity'
                 alias: Parser
