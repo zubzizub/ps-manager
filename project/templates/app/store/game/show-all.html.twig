@@ -14,8 +14,9 @@
         <tbody>
         {% for game in games %}
             <tr>
+                <td><img src="{{ game.urlImage }}" width='64' height='64' /></td>
                 <td>{{ game.id }}</td>
-                <td>{{ game.name }}</td>
+                <td>{{ game.title }}</td>
                 <td>{{ game.price|number_format(2, '.', ',') }}</td>
             </tr>
         {% endfor %}

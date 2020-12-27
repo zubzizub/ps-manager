@@ -9,7 +9,7 @@ use App\Domain\Store\Entity\Game\Game;
 use App\Domain\Store\Entity\Game\Id;
 use App\Domain\Store\Entity\Game\Price;
 use App\Domain\Store\Repository\GameRepository;
-use App\Components\Parser\ParserInterface;
+use App\Domain\Store\Service\Ps\PsInterface;
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -17,13 +17,13 @@ use DomainException;
 
 class Handler
 {
-    private ParserInterface $parser;
+    private PsInterface $parser;
 
     private GameRepository $repository;
     private Flusher $flusher;
 
     public function __construct(
-        ParserInterface $parser,
+        PsInterface $parser,
         GameRepository $repository,
         Flusher $flusher
     ) {

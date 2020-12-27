@@ -4,8 +4,45 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d69755f35c22e328db4703d6c615a931",
+    "content-hash": "0bb5749d546f24d6b0d859e3fe885428",
     "packages": [
+        {
+            "name": "0xwaleed/playstation-store-api",
+            "version": "2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/0xWaleed/playstation-store-api.git",
+                "reference": "f1e46c80358049b0e59d0f0e06c877a0c525132e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/0xWaleed/playstation-store-api/zipball/f1e46c80358049b0e59d0f0e06c877a0c525132e",
+                "reference": "f1e46c80358049b0e59d0f0e06c877a0c525132e",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "": "PlaystationStore/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "0xWaleed",
+                    "email": "imwaleed@outlook.sa"
+                }
+            ],
+            "description": "Playstation store API to fetch data from the store as JSON",
+            "support": {
+                "issues": "https://github.com/0xWaleed/playstation-store-api/issues",
+                "source": "https://github.com/0xWaleed/playstation-store-api/tree/2.0.0"
+            },
+            "time": "2020-12-23T16:07:29+00:00"
+        },
         {
             "name": "brick/math",
             "version": "0.9.1",

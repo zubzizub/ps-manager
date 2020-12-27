@@ -1,4 +1,7 @@
 {
+    "0xwaleed/playstation-store-api": {
+        "version": "2.0.0"
+    },
     "brick/math": {
         "version": "0.9.1"
     },

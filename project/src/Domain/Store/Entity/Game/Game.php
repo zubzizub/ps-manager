@@ -68,6 +68,9 @@ class Game
      */
     private ?string $imageUrl;
 
+    //todo: after create user
+//    private bool $isFavourite;
+
     /**
      * @var DateTimeImmutable
      * @Mapping\Column(type="datetime_immutable", nullable=true, name="discount_end_date")

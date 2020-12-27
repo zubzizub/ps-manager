@@ -7,7 +7,7 @@ namespace App\Controller\Store;
 use App\Domain\Flusher;
 use App\Domain\Store\Entity\Game\Price;
 use App\Domain\Store\Repository\GameRepository;
-use App\Components\Parser\ParserInterface;
+use App\Domain\Store\Service\Ps\PsInterface;
 use App\Domain\Store\UseCase\Game\Create\Command;
 use App\Domain\Store\UseCase\Game\Create\Form;
 use App\Domain\Store\UseCase\Game\Create\Handler;
@@ -67,7 +67,7 @@ class GameController extends AbstractController
      *
      * @param GameFetcher $fetcher
      * @param GameRepository $repository
-     * @param ParserInterface $parser
+     * @param PsInterface $parser
      * @param Flusher $flusher
      * @return Response
      * @throws Exception
@@ -76,7 +76,7 @@ class GameController extends AbstractController
     public function updateAll(
         GameFetcher $fetcher,
         GameRepository $repository,
-        ParserInterface $parser,
+        PsInterface $parser,
         Flusher $flusher
     ): Response
     {
@@ -99,12 +99,12 @@ class GameController extends AbstractController
     /**
      * @Route("/game/show-all", name="showAllGames")
      *
-     * @param ParserInterface $parser
+     * @param PsInterface $parser
      * @return Response
      */
-    public function showAll(ParserInterface $parser): Response
+    public function showAll(PsInterface $parser): Response
     {
-        $games = $parser->getAllGames();
+        $games = $parser->getAllGames()->all();
         return $this->render('app/store/game/show-all.html.twig', compact('games'));
     }
 }
