@@ -19,4 +19,6 @@ interface PsGameInterface
     public function getDiscountEndDate(): DateTimeImmutable;
 
     public function getVersion(): string;
+
+    public function getUrlImage(): string;
 }

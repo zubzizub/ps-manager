@@ -70,4 +70,9 @@ class PsGame implements PsGameInterface
     {
         return $this->version;
     }
+
+    public function getUrlImage(): string
+    {
+        return $this->urlImage;
+    }
 }

@@ -10,6 +10,7 @@
         <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col"></th>
             <th scope="col">Title</th>
             <th scope="col">Price</th>
             <th scope="col">Price discount</th>
@@ -20,6 +21,7 @@
             {% for game in games %}
                 <tr>
                     <th scope="row">1</th>
+                    <td><img src="{{ game.image_url }}" width='64' height='64' /></td>
                     <td>{{ game.title }}</td>
                     <td>{{ game.price }}</td>
                     <td>{{ game.price_discount }}</td>

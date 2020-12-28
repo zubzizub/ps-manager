@@ -54,7 +54,7 @@ class Handler
             $dataParser->description,
             new Price($dataParser->price),
             new Price($dataParser->priceDiscount),
-            null,
+            $dataParser->getUrlImage(),
             $dataParser->discountEndDate,
             new DateTimeImmutable()
         );
