@@ -9,9 +9,9 @@ use App\Domain\User\Entity\Id;
 use App\Domain\User\Entity\User;
 use App\Domain\User\FlusherInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
-use App\Domain\User\Service\ConfirmTokenizer;
 use App\Domain\User\Service\ConfirmTokenSender;
 use App\Domain\User\Service\PasswordHasher;
+use App\Domain\User\Service\SignUpConfirmTokenizer;
 use DateTimeImmutable;
 use DomainException;
 
@@ -20,14 +20,14 @@ class Handler
     private UserRepositoryInterface $userRepository;
     private FlusherInterface $flusher;
     private PasswordHasher $hasher;
-    private ConfirmTokenizer $tokenizer;
+    private SignUpConfirmTokenizer $tokenizer;
     private ConfirmTokenSender $tokenSender;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         FlusherInterface $flusher,
         PasswordHasher $hasher,
-        ConfirmTokenizer $tokenizer,
+        SignUpConfirmTokenizer $tokenizer,
         ConfirmTokenSender $tokenSender
     ) {
         $this->userRepository = $userRepository;

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Entity;
 
 use DateTimeImmutable;
+use DomainException;
 
 class User
 {
@@ -36,6 +37,15 @@ class User
         $this->confirmToken = $token;
         $this->date = $date;
         $this->status = self::STATUS_WAIT;
+    }
+
+    public function confirmSignUp(): void
+    {
+        if (!$this->isWait()) {
+            throw new DomainException('User is already confirmed.');
+        }
+        $this->status = self::STATUS_ACTIVE;
+        $this->confirmToken = null;
     }
 
     public function isWait(): bool
