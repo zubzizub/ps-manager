@@ -14,12 +14,12 @@ class RequestTest extends TestCase
 {
     public function testSuccess(): void
     {
-        $user = new User(
+        $user = User::signUpByEmail(
             $id = Id::next(),
+            $date = new DateTimeImmutable(),
             $email = new Email('test@test.com'),
             $password = 'hash',
-            $token = 'token',
-            $date = new DateTimeImmutable()
+            $token = 'token'
         );
 
         self::assertEquals($id, $user->getId());
