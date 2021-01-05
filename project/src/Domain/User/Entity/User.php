@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Entity;
 
 use DateTimeImmutable;
+use Doctrine\Common\Collections\ArrayCollection;
 use DomainException;
 
 class User
@@ -16,27 +17,63 @@ class User
 
     private Email $email;
 
-    private string $passwordHash;
-
     private string $status;
+
+    private string $passwordHash;
 
     private ?string $confirmToken;
 
     private DateTimeImmutable $date;
 
-    public function __construct(
-        Id $id,
-        Email $email,
-        string $passwordHash,
-        string $token,
-        DateTimeImmutable $date
-    ) {
+    /**
+     * @var ArrayCollection
+     */
+    private ArrayCollection $networks;
+
+    private function __construct(Id $id, DateTimeImmutable $date)
+    {
         $this->id = $id;
-        $this->email = $email;
-        $this->passwordHash = $passwordHash;
-        $this->confirmToken = $token;
         $this->date = $date;
-        $this->status = self::STATUS_WAIT;
+        $this->networks = new ArrayCollection();
+    }
+
+    public static function signUpByEmail(
+        Id $id,
+        DateTimeImmutable $date,
+        Email $email,
+        string $hash,
+        string $token
+    ): User {
+        $user = new self($id, $date);
+        $user->email = $email;
+        $user->passwordHash = $hash;
+        $user->confirmToken = $token;
+        $user->status = self::STATUS_WAIT;
+        return $user;
+    }
+
+    public static function signUpByNetwork(
+        Id $id,
+        DateTimeImmutable $date,
+        string $network,
+        string $identity
+    ): User
+    {
+        $user = new self($id, $date);
+        $user->attacheNetwork($network, $identity);
+        $user->status = self::STATUS_ACTIVE;
+        return $user;
+    }
+
+    private function attacheNetwork(string $network, string $identity): void
+    {
+        /** @var Network $existsNetwork */
+        foreach ($this->networks as $existsNetwork) {
+            if ($existsNetwork->isForNetwork($network)) {
+                throw new DomainException('Network is already attached.');
+            }
+        }
+        $this->networks->add(new Network($this, $network, $identity));
     }
 
     public function confirmSignUp(): void
@@ -81,5 +118,13 @@ class User
     public function getConfirmToken(): ?string
     {
         return $this->confirmToken;
+    }
+
+    /**
+     * @return Network[]
+     */
+    public function getNetworks(): array
+    {
+        return $this->networks->toArray();
     }
 }
