@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\User\Repository;
 
 use App\Domain\User\Entity\Email;
+use App\Domain\User\Entity\Id;
 use App\Domain\User\Entity\User;
 
 interface UserRepositoryInterface
@@ -20,4 +21,6 @@ interface UserRepositoryInterface
     public function getByEmail(Email $email): User;
 
     public function findByResetToken(string $token): ?User;
+
+    public function getById(Id $id): User;
 }

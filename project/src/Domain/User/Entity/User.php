@@ -27,6 +27,7 @@ class User
 
     private DateTimeImmutable $date;
 
+    private Role $role;
     /**
      * @var ArrayCollection
      */
@@ -36,6 +37,7 @@ class User
     {
         $this->id = $id;
         $this->date = $date;
+        $this->role = Role::user();
         $this->networks = new ArrayCollection();
     }
 
@@ -117,6 +119,15 @@ class User
         $this->resetToken = null;
     }
 
+    public function changeRole(Role $role): void
+    {
+        if ($this->role->isEqual($role)) {
+            throw new DomainException('User already has this role.');
+        }
+
+        $this->role = $role;
+    }
+
     public function isWait(): bool
     {
         return $this->status === self::STATUS_WAIT;
@@ -155,6 +166,11 @@ class User
     public function getResetToken(): ?ResetToken
     {
         return $this->resetToken;
+    }
+
+    public function getRole(): Role
+    {
+        return $this->role;
     }
 
     /**
