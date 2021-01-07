@@ -63,4 +63,15 @@ class RequestTest extends TestCase
         $this->expectExceptionMessage('Email is not specified.');
         $user->requestPasswordReset($token, new DateTimeImmutable());
     }
+
+    public function testNotConfirmed(): void
+    {
+        $now = new DateTimeImmutable();
+        $user = (new UserWithEmailBuilder())->build();
+
+        $token = new ResetToken('token', $now->modify('+1 day'));
+
+        $this->expectExceptionMessage('User is not active.');
+        $user->requestPasswordReset($token, $now);
+    }
 }
