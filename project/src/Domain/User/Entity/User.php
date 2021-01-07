@@ -15,13 +15,15 @@ class User
 
     private Id $id;
 
-    private Email $email;
+    private ?Email $email = null;
 
     private string $status;
 
     private string $passwordHash;
 
-    private ?string $confirmToken;
+    private ?ResetToken $resetToken = null;
+
+    private ?string $confirmToken = null;
 
     private DateTimeImmutable $date;
 
@@ -85,6 +87,32 @@ class User
         $this->confirmToken = null;
     }
 
+    public function requestPasswordReset(ResetToken $token, DateTimeImmutable $date): void
+    {
+        if (!$this->email) {
+            throw new DomainException('Email is not specified.');
+        }
+
+        if ($this->resetToken !== null && !$this->resetToken->isExpiredTo($date)) {
+            throw new DomainException('Resetting is already requested.');
+        }
+
+        $this->resetToken = $token;
+    }
+
+    public function passwordReset(string $hash, DateTimeImmutable $date):void
+    {
+        if ($this->resetToken === null) {
+            throw new DomainException('Resetting is not requested.');
+        }
+
+        if ($this->resetToken->isExpiredTo($date)) {
+            throw new DomainException('Reset token is expired.');
+        }
+        $this->passwordHash = $hash;
+        $this->resetToken = null;
+    }
+
     public function isWait(): bool
     {
         return $this->status === self::STATUS_WAIT;
@@ -118,6 +146,11 @@ class User
     public function getConfirmToken(): ?string
     {
         return $this->confirmToken;
+    }
+
+    public function getResetToken(): ?ResetToken
+    {
+        return $this->resetToken;
     }
 
     /**
