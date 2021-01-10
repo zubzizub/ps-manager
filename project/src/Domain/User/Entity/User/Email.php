@@ -2,24 +2,22 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Entity;
+namespace App\Domain\User\Entity\User;
 
-use Ramsey\Uuid\Uuid;
+use http\Exception\InvalidArgumentException;
 use Webmozart\Assert\Assert;
 
-class Id
+class Email
 {
     private string $value;
 
     public function __construct(string $value)
     {
         Assert::notEmpty($value);
+        if (!filter_var($value, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidArgumentException('Incorrect email');
+        }
         $this->value = $value;
-    }
-
-    public static function next(): self
-    {
-        return new self(Uuid::uuid4()->toString());
     }
 
     public function getValue(): string

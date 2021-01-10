@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\User\UseCase\Role;
 
-use App\Domain\User\Entity\Id;
-use App\Domain\User\Entity\Role;
+use App\Domain\User\Entity\User\Id;
+use App\Domain\User\Entity\User\Role;
 use App\Domain\User\FlusherInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 

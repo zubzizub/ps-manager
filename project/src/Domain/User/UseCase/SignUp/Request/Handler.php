@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Domain\User\UseCase\SignUp\Request;
 
-use App\Domain\User\Entity\Email;
-use App\Domain\User\Entity\Id;
-use App\Domain\User\Entity\User;
+use App\Domain\User\Entity\User\Email;
+use App\Domain\User\Entity\User\Id;
+use App\Domain\User\Entity\User\User;
 use App\Domain\User\FlusherInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use App\Domain\User\Service\ConfirmTokenSender;

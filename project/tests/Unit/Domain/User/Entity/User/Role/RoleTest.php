@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\User\Entity\User\Role;
 
-use App\Domain\User\Entity\Role;
+use App\Domain\User\Entity\User\Role;
 use App\Tests\Builder\User\UserWithEmailBuilder;
 use PHPUnit\Framework\TestCase;
 

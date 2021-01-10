@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Domain\User\UseCase\SignUpByNetwork\Request;
 
-use App\Domain\User\Entity\Id;
-use App\Domain\User\Entity\User;
+use App\Domain\User\Entity\User\Id;
+use App\Domain\User\Entity\User\User;
 use App\Domain\User\FlusherInterface;
 use App\Domain\User\Repository\UserRepositoryInterface;
 use DateTimeImmutable;

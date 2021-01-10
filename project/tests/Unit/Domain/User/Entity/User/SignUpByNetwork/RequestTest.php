@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\User\Entity\User\SignUpByNetwork;
 
-use App\Domain\User\Entity\Id;
-use App\Domain\User\Entity\Network;
-use App\Domain\User\Entity\User;
+use App\Domain\User\Entity\User\Id;
+use App\Domain\User\Entity\User\Network;
+use App\Domain\User\Entity\User\User;
 use App\Tests\Builder\User\UserBuilder;
 use App\Tests\Unit\Utils\PrivateAccessor;
 use DateTimeImmutable;

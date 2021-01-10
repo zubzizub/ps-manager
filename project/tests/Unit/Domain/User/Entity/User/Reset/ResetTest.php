@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\User\Entity\User\Reset;
 
-use App\Domain\User\Entity\ResetToken;
+use App\Domain\User\Entity\User\ResetToken;
 use App\Tests\Builder\User\UserWithEmailBuilder;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
