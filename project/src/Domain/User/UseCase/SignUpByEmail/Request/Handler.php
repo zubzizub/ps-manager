@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\UseCase\SignUp\Request;
+namespace App\Domain\User\UseCase\SignUpByEmail\Request;
 
 use App\Domain\User\Entity\User\Email;
 use App\Domain\User\Entity\User\Id;

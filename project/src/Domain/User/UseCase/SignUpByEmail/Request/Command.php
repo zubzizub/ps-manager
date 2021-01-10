@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\UseCase\SignUp\Request;
+namespace App\Domain\User\UseCase\SignUpByEmail\Request;
 
 class Command
 {

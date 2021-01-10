@@ -3,6 +3,7 @@
     "license": "proprietary",
     "require": {
         "php": ">=7.2.5",
+        "ext-http": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "0xwaleed/playstation-store-api": "^2.0",

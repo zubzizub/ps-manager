@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\UseCase\SignUp\Confirm;
+namespace App\Domain\User\UseCase\SignUpByEmail\Confirm;
 
 use App\Domain\Flusher;
 use App\Domain\User\Repository\UserRepositoryInterface;
