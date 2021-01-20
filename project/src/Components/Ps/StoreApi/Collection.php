@@ -42,13 +42,13 @@ class Collection implements PsInterface
         $freeToPlay = (new Games('ru', 'ru'))->freeToPlay(0, 100);
 
         $psGameCollection = new PsGamesCollection();
-        /** @var  $game */
+        /** @var PsGame $game */
         foreach ($freeToPlay as $game) {
             $psGame = new PsGame();
             $psGame->id = $game->id;
-            $psGame->title = $game->name;
+            $psGame->title = $game->title;
             $psGame->price = $game->default_sku->price/100 ?? 0;
-            $psGame->urlImage = $game->images[0]->url;
+//            $psGame->urlImage = $game->images[0]->url;
             $psGameCollection->add($psGame);
         }
 
