@@ -23,8 +23,8 @@
                     <th scope="row">1</th>
                     <td><img src="{{ game.image_url }}" width='64' height='64' /></td>
                     <td>{{ game.title }}</td>
-                    <td>{{ game.price }}</td>
-                    <td>{{ game.price_discount }}</td>
+                    <td>{{ game.price|number_format(2, '.', ',') }}</td>
+                    <td>{{ game.price_discount ? game.price_discount|number_format(2, '.', ',') : '-' }}</td>
                 </tr>
             {% endfor %}
         {% else %}

@@ -6,6 +6,7 @@
         "ext-http": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "0xwaleed/playstation-store-api": "^2.0",
         "composer/package-versions-deprecated": "^1.11",
         "doctrine/annotations": "^1.0",

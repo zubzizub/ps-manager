@@ -1,9 +1,5 @@
 <?php
 
-/**
- *
- */
-
 namespace App\Command\Games;
 
 use App\Components\Ps\PsGame;
@@ -26,21 +22,30 @@ class GetCommand extends Command
         parent::__construct();
     }
 
+    protected function configure(): void
+    {
+        $this
+            ->setName('games:get')
+            ->setDescription('Get games from ps');
+    }
+
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $games = $this->parser->getAllGames();
 
         /** @var PsGame $game */
-        foreach ($games as $game) {
+        foreach ($games->all() as $game) {
             $command = new \App\Domain\Store\UseCase\Game\Create\Command();
             $command->externalId = $game->id;
 
             try {
                 $this->handler->handle($command);
             } catch (Exception $exception) {
-                return 1;
+                echo $exception->getMessage();
+
             }
         }
+        echo 'success';
         return 0;
     }
 }
