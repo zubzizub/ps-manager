@@ -17,7 +17,7 @@ docker-pull:
 	docker-compose pull
 
 docker-build:
-	docker-compose build
+	docker-compose build --pull
 
 clear:
 	docker run --rm -v ${PWD}/project:/app --workdir=/app alpine rm -f .ready
