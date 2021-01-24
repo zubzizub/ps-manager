@@ -4,21 +4,21 @@ declare(strict_types=1);
 
 namespace App\Domain\Store\Service\Ps;
 
-use DateTimeImmutable;
-
 interface PsGameInterface
 {
-    public function getTitle(): string;
+    public function getExternalId();
 
-    public function getDescription(): string;
+    public function getTitle();
 
-    public function getPrice(): int;
+    public function getDescription();
 
-    public function getPriceDiscount(): int;
+    public function getPrice();
 
-    public function getDiscountEndDate(): DateTimeImmutable;
+    public function getLowerPrice();
 
-    public function getVersion(): string;
+    public function getDiscountEndDate();
 
-    public function getUrlImage(): string;
+    public function getVersion();
+
+    public function getImageUrl();
 }

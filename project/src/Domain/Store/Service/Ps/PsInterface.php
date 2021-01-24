@@ -8,5 +8,5 @@ interface PsInterface
 {
     public function getGameById(string $gameId): PsGameInterface;
 
-    public function getAllGames(): PsGamesCollectionInterface;
+    public function getAllGames(int $startPage): PsGamesCollectionInterface;
 }

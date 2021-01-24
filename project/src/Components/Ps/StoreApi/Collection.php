@@ -38,40 +38,52 @@ class Collection implements PsInterface
 
         $psGame = new PsGame();
 
-        $psGame->id = $game->id;
+        $psGame->externalId = $game->id;
         $psGame->title = $game->name;
         $psGame->description = $game->long_desc;
         $psGame->price = $game->default_sku->price/100 ?? 0;
 
         if (isset($game->default_sku->rewards[0])) {
             $reward = $game->default_sku->rewards[0];
-            $psGame->priceDiscount = $this->getPriceDiscount($psGame->price, $reward->discount);
+            $psGame->lowerPrice = $this->getPriceDiscount($psGame->price, $reward->discount);
             $psGame->discountEndDate = new DateTimeImmutable($reward->campaigns[0]->end_date) ;
         } else {
-            $psGame->priceDiscount = 0;
+            $psGame->lowerPrice = 0;
             $psGame->discountEndDate = new DateTimeImmutable() ;
         }
 
-        $psGame->urlImage = $game->images[0]->url;
+        $psGame->imageUrl = $game->images[0]->url;
 
         return $psGame;
     }
 
-    public function getAllGames(): PsGamesCollectionInterface
+    /**
+     * @param int $startPage
+     * @return PsGamesCollectionInterface
+     * @throws Exception
+     */
+    public function getAllGames(int $startPage): PsGamesCollectionInterface
     {
-        $freeToPlay = (new Games('ru', 'ru'))->onlyOnPlaystation(0, 100);
-
+        $gamesFromPs = (new Games('ru', 'ru'))->fullGames($startPage, 500);
         $psGameCollection = new PsGamesCollection();
 
-        foreach ($freeToPlay as $game) {
+        foreach ($gamesFromPs as $game) {
             $psGame = new PsGame();
-            $psGame->id = $game->id;
-            $psGame->title = $game->name;
-            $psGame->price = $game->default_sku->price/100 ?? 0;
-            $psGame->urlImage = $game->images[0]->url;
+            $psGame->externalId = $game->id ?? null;
+            $psGame->title = $game->name ?? '';
+            $psGame->description = $game->long_desc ?? '';
+            $psGame->price = isset($game->default_sku->price) ? $game->default_sku->price/100 : 0;
+            $psGame->imageUrl = $game->images[0]->url ?? null;
+            if (isset($game->default_sku->rewards[0])) {
+                $reward = $game->default_sku->rewards[0];
+                $psGame->lowerPrice = $this->getPriceDiscount($psGame->price, $reward->discount);
+                $psGame->discountEndDate = isset($reward->end_date) ? new DateTimeImmutable($reward->end_date) : null;
+            } else {
+                $psGame->lowerPrice = 0;
+                $psGame->discountEndDate = new DateTimeImmutable();
+            }
             $psGameCollection->add($psGame);
         }
-
         return $psGameCollection;
     }
 

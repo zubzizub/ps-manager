@@ -20,7 +20,8 @@
         {% if games %}
             {% for game in games %}
                 <tr>
-                    <th scope="row">1</th>
+                    {% set counter = ( counter | default(0) ) + 1 %}
+                    <th scope="row">{{ counter }}</th>
                     <td><img src="{{ game.image_url }}" width='64' height='64' /></td>
                     <td>{{ game.title }}</td>
                     <td>{{ game.price|number_format(2, '.', ',') }}</td>

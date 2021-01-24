@@ -9,7 +9,6 @@ use App\Domain\Store\Entity\Game\Game;
 use App\Domain\Store\Entity\Game\Id;
 use App\Domain\Store\Entity\Game\Price;
 use App\Domain\Store\Repository\GameRepository;
-use App\Domain\Store\Service\Ps\PsInterface;
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
@@ -17,17 +16,11 @@ use DomainException;
 
 class Handler
 {
-    private PsInterface $parser;
-
     private GameRepository $repository;
     private Flusher $flusher;
 
-    public function __construct(
-        PsInterface $parser,
-        GameRepository $repository,
-        Flusher $flusher
-    ) {
-        $this->parser = $parser;
+    public function __construct(GameRepository $repository, Flusher $flusher)
+    {
         $this->repository = $repository;
         $this->flusher = $flusher;
     }
@@ -39,23 +32,19 @@ class Handler
      */
     public function handle(Command $command): void
     {
-        $externalId = $command->externalId;
-
-        if ($this->repository->hasByExternalId($externalId)) {
+        if ($this->repository->hasByExternalId($command->externalId)) {
             throw new DomainException('Game already exists.');
         }
 
-        $dataParser = $this->parser->getGameById($externalId);
-
         $game = new Game(
             Id::next(),
-            $externalId,
-            $dataParser->title,
-            $dataParser->description,
-            new Price($dataParser->price),
-            new Price($dataParser->priceDiscount),
-            $dataParser->getUrlImage(),
-            $dataParser->discountEndDate,
+            $command->externalId,
+            $command->title,
+            $command->description,
+            new Price($command->price),
+            new Price($command->lowerPrice),
+            $command->imageUrl,
+            $command->discountEndDate,
             new DateTimeImmutable()
         );
 

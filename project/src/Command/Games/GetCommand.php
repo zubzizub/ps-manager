@@ -2,13 +2,13 @@
 
 namespace App\Command\Games;
 
-use App\Components\Ps\PsGame;
 use App\Domain\Store\Service\Ps\PsInterface;
 use App\Domain\Store\UseCase\Game\Create\Handler;
 use Exception;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use App\Domain\Store\UseCase\Game\Create\Command as CreateCommandDto;
 
 class GetCommand extends Command
 {
@@ -31,18 +31,25 @@ class GetCommand extends Command
 
     public function execute(InputInterface $input, OutputInterface $output): int
     {
-        $games = $this->parser->getAllGames();
+        for ($i = 0; $i <= 1; $i++) {
+            $page = $i * 100;
+            $gamesCollection = $this->parser->getAllGames($page);
 
-        /** @var PsGame $game */
-        foreach ($games->all() as $game) {
-            $command = new \App\Domain\Store\UseCase\Game\Create\Command();
-            $command->externalId = $game->id;
+            foreach ($gamesCollection->all() as $game) {
+                $command = new CreateCommandDto();
+                $command->externalId = $game->getExternalId();
+                $command->title = $game->getTitle();
+                $command->description = $game->getDescription();
+                $command->price = $game->getPrice();
+                $command->lowerPrice = $game->getLowerPrice();
+                $command->imageUrl = $game->getImageUrl();
+                $command->discountEndDate = $game->getDiscountEndDate();
 
-            try {
-                $this->handler->handle($command);
-            } catch (Exception $exception) {
-                echo $exception->getMessage();
-
+                try {
+                    $this->handler->handle($command);
+                } catch (Exception $exception) {
+                    echo $exception->getMessage();
+                }
             }
         }
         echo 'success';

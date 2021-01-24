@@ -6,40 +6,29 @@ namespace App\Components\Ps;
 
 use App\Domain\Store\Service\Ps\PsGameInterface;
 use DateTimeImmutable;
-use Symfony\Component\Validator\Constraints as Validation;
 
 class PsGame implements PsGameInterface
 {
-    /**
-     * @Validation\NotBlank()
-     */
-    public string $id;
+    public $externalId;
 
-    /**
-     * @Validation\NotBlank()
-     */
-    public string $title;
-    /**
-     * @Validation\NotBlank()
-     */
-    public string $description;
-    /**
-     * @Validation\NotBlank()
-     */
+    public $title;
+
+    public $description;
+
     public $price;
 
-    public ?int $priceDiscount;
-    /**
-     * @Validation\NotBlank()
-     */
-    public string $version;
+    public $lowerPrice;
 
-    public string $urlImage;
-    /**
-     * @var DateTimeImmutable
-     * @Validation\Date()
-     */
-    public DateTimeImmutable $discountEndDate;
+    public $version;
+
+    public $imageUrl;
+
+    public ?DateTimeImmutable $discountEndDate;
+
+    public function getExternalId(): string
+    {
+        return $this->externalId;
+    }
 
     public function getTitle(): string
     {
@@ -56,12 +45,12 @@ class PsGame implements PsGameInterface
         return $this->price;
     }
 
-    public function getPriceDiscount(): int
+    public function getLowerPrice(): int
     {
-        return $this->priceDiscount;
+        return $this->lowerPrice;
     }
 
-    public function getDiscountEndDate(): DateTimeImmutable
+    public function getDiscountEndDate(): ?DateTimeImmutable
     {
         return $this->discountEndDate;
     }
@@ -71,8 +60,8 @@ class PsGame implements PsGameInterface
         return $this->version;
     }
 
-    public function getUrlImage(): string
+    public function getImageUrl(): string
     {
-        return $this->urlImage;
+        return $this->imageUrl;
     }
 }

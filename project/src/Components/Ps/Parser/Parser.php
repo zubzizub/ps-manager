@@ -26,7 +26,7 @@ class Parser implements PsInterface
         return $this->findGameByAttr($query, $gameId);
     }
 
-    public function getAllGames(): PsGamesCollection
+    public function getAllGames($startPage): PsGamesCollection
     {
         $urlGame = "https://store.playstation.com/ru-ru/category/4df8ce70-bb0a-41c0-a2d2-98a3781c0c78/1";
         $query = (new QueryList)->get($urlGame);

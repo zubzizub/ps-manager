@@ -72,10 +72,10 @@ class Game
 //    private bool $isFavourite;
 
     /**
-     * @var DateTimeImmutable
+     * @var DateTimeImmutable|null
      * @Mapping\Column(type="datetime_immutable", nullable=true, name="discount_end_date")
      */
-    private DateTimeImmutable $discountEndDate;
+    private ?DateTimeImmutable $discountEndDate;
 
     /**
      * @var DateTimeImmutable
@@ -97,7 +97,7 @@ class Game
         Price $price,
         ?Price $priceDiscount,
         ?string $imageUrl,
-        DateTimeImmutable $discountEndDate,
+        ?DateTimeImmutable $discountEndDate,
         DateTimeImmutable $createDate
     ) {
         $this->id = $id;
