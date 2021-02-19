@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Domain\User\Doctrine;
+namespace App\Infrastructure\User\Doctrine;
 
 use App\Domain\User\Entity\User\Email;
 use App\Domain\User\Entity\User\Id;

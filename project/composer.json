@@ -3,7 +3,6 @@
     "license": "proprietary",
     "require": {
         "php": ">=7.2.5",
-        "ext-http": "*",
         "ext-ctype": "*",
         "ext-iconv": "*",
         "ext-json": "*",
@@ -54,7 +53,8 @@
         "symfony/phpunit-bridge": "^5.1",
         "symfony/stopwatch": "^5.1",
         "symfony/var-dumper": "^5.1",
-        "symfony/web-profiler-bundle": "^5.1"
+        "symfony/web-profiler-bundle": "^5.1",
+        "symfony/test-pack": "*"
     },
     "config": {
         "optimize-autoloader": true,

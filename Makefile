@@ -27,6 +27,9 @@ project-init: composer-install assets-install wait-db migrations ready
 composer-install:
 	docker-compose run --rm php-cli composer install
 
+composer-update:
+	docker-compose run --rm php-cli composer update
+
 assets-install:
 	docker-compose run --rm node yarn install
 
