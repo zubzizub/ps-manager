@@ -24,9 +24,9 @@ doctrine:
             User:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Domain/User/Entity'
+                dir: '%kernel.project_dir%/src/Domain/Auth/Entity'
                 prefix: 'App\Domain\User\Entity\User'
-                alias: User
+                alias: Auth
             Parser:
                 is_bundle: false
                 type: annotation

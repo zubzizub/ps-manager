@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\User\Entity\User\Role;
 
-use App\Domain\User\Entity\User\Role;
+use App\Domain\Auth\Entity\User\Role;
 use App\Tests\Builder\User\UserWithEmailBuilder;
 use PHPUnit\Framework\TestCase;
 
@@ -26,7 +26,7 @@ class RoleTest extends TestCase
     {
         $user = (new UserWithEmailBuilder())->build();
 
-        $this->expectExceptionMessage('User already has this role.');
+        $this->expectExceptionMessage('Auth already has this role.');
         $user->changeRole(Role::user());
     }
 }

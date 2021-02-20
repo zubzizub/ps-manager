@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit\Domain\User\Entity\User\Reset;
 
-use App\Domain\User\Entity\User\ResetToken;
+use App\Domain\Auth\Entity\User\ResetToken;
 use App\Tests\Builder\User\UserWithEmailBuilder;
 use App\Tests\Builder\User\UserWithNetworkBuilder;
 use DateTimeImmutable;
@@ -71,7 +71,7 @@ class RequestTest extends TestCase
 
         $token = new ResetToken('token', $now->modify('+1 day'));
 
-        $this->expectExceptionMessage('User is not active.');
+        $this->expectExceptionMessage('Auth is not active.');
         $user->requestPasswordReset($token, $now);
     }
 }
