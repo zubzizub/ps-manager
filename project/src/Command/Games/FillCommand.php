@@ -10,7 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use App\Domain\Store\UseCase\Game\Create\Command as CreateCommandDto;
 
-class GetCommand extends Command
+class FillCommand extends Command
 {
     private PsInterface $parser;
     private Handler $handler;
@@ -25,8 +25,8 @@ class GetCommand extends Command
     protected function configure(): void
     {
         $this
-            ->setName('games:get')
-            ->setDescription('Get games from ps');
+            ->setName('games:fill')
+            ->setDescription('Fill games from ps.');
     }
 
     public function execute(InputInterface $input, OutputInterface $output): int

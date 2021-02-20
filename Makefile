@@ -62,3 +62,6 @@ migrations-validate:
 
 assets-dev:
 	docker-compose run --rm node npm run dev
+
+games-fill:
+	docker-compose run --rm php-cli bin/console games:fill
