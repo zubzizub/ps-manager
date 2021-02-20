@@ -13,6 +13,10 @@ doctrine:
             game_price: 'App\Domain\Store\Entity\Game\PriceType'
             game_status: 'App\Domain\Store\Entity\Game\StatusType'
 
+            auth_user_id: 'App\Infrastructure\User\Types\IdType'
+            auth_user_email: 'App\Infrastructure\User\Types\EmailType'
+            auth_user_role: 'App\Infrastructure\User\Types\RoleType'
+
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '5.7'
@@ -21,13 +25,13 @@ doctrine:
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
         auto_mapping: true
         mappings:
-            User:
+            Auth:
                 is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/src/Domain/Auth/Entity'
-                prefix: 'App\Domain\User\Entity\User'
+                prefix: 'App\Domain\Auth\Entity'
                 alias: Auth
-            Parser:
+            Store:
                 is_bundle: false
                 type: annotation
                 dir: '%kernel.project_dir%/src/Domain/Store/Entity'

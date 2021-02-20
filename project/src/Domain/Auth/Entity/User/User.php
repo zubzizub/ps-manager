@@ -6,30 +6,74 @@ namespace App\Domain\Auth\Entity\User;
 
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Mapping;
 use DomainException;
 
+/**
+ * @Mapping\Entity
+ * @Mapping\HasLifecycleCallbacks
+ * @Mapping\Table (name="auth_users", uniqueConstraints={
+ *     @Mapping\UniqueConstraint(columns={"email"}),
+ *     @Mapping\UniqueConstraint(columns={"reset_token_token"})
+ * })
+ */
 class User
 {
     private const STATUS_WAIT = 'wait';
     private const STATUS_ACTIVE = 'active';
 
+    /**
+     * @Mapping\Column (type="auth_user_id")
+     * @Mapping\Id
+     */
     private Id $id;
 
+    /**
+     * @var Email|null
+     * @Mapping\Column (type="auth_user_email", nullable=true)
+     */
     private ?Email $email = null;
 
+    /**
+     * @var string
+     * @Mapping\Column (type="string", length=16)
+     */
     private string $status;
 
+    /**
+     * @var string
+     * @Mapping\Column (type="string", length=16)
+     */
     private string $passwordHash;
 
+    /**
+     * @var ResetToken|null
+     * @Mapping\Embedded(class="ResetToken", columnPrefix="reset_token_")
+     */
     private ?ResetToken $resetToken = null;
 
+    /**
+     * @var string|null
+     * @Mapping\Column (type="string", name="confirm_token", nullable=true)
+     */
     private ?string $confirmToken = null;
 
+    /**
+     * @var DateTimeImmutable
+     * @Mapping\Column (type="date_immutable")
+     */
     private DateTimeImmutable $date;
 
+    /**
+     * @var Role
+     * @Mapping\Column (type="auth_user_role")
+     */
     private Role $role;
+
     /**
      * @var ArrayCollection
+     * @Mapping\OneToMany(targetEntity="Network", mappedBy="user",
+     *      orphanRemoval=true, cascade={"persist"})
      */
     private ArrayCollection $networks;
 
@@ -179,5 +223,15 @@ class User
     public function getNetworks(): array
     {
         return $this->networks->toArray();
+    }
+
+    /**
+     * @Mapping\PostLoad()
+     */
+    public function checkEmbeds()
+    {
+        if ($this->resetToken->isEmpty()) {
+            $this->resetToken = null;
+        }
     }
 }
