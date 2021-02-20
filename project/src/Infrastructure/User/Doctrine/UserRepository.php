@@ -8,41 +8,108 @@ use App\Domain\Auth\Entity\User\Email;
 use App\Domain\Auth\Entity\User\Id;
 use App\Domain\Auth\Entity\User\User;
 use App\Domain\Auth\Repository\UserRepositoryInterface;
+use App\Domain\EntityNotFoundException;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\ORMException;
 
 class UserRepository implements UserRepositoryInterface
 {
-    public function hasByEmail(Email $email): bool
+    private EntityManager $em;
+
+    private EntityRepository $repository;
+
+    public function __construct(EntityManager $em)
     {
-        // TODO: Implement hasByEmail() method.
+        $this->em = $em;
+        $this->repository = $em->getRepository(User::class);
     }
 
+    /**
+     * @param User $user
+     * @throws ORMException
+     */
     public function add(User $user): void
     {
-        // TODO: Implement add() method.
-    }
-
-    public function findByConfirmToken(string $token): ?User
-    {
-        // TODO: Implement findByConfirmToken() method.
-    }
-
-    public function hasByNetworkIdentity(string $network, string $identity): bool
-    {
-        // TODO: Implement hasByNetworkIdentity() method.
-    }
-
-    public function getByEmail(Email $email): User
-    {
-        // TODO: Implement getByEmail() method.
-    }
-
-    public function findByResetToken(string $token): ?User
-    {
-        // TODO: Implement findByResetToken() method.
+        $this->em->persist($user);
     }
 
     public function getById(Id $id): User
     {
-        // TODO: Implement getById() method.
+        /** @var User $user */
+        $user = $this->repository->find($id->getValue());
+        if ($user === null) {
+            throw new EntityNotFoundException('User is not found.');
+        }
+        return $user;
+    }
+
+    public function getByEmail(Email $email): User
+    {
+        /** @var User $user */
+        $user = $this->repository->findOneBy(['email' => $email->getValue()]);
+        if ($user === null) {
+            throw new EntityNotFoundException('User is not found.');
+        }
+        return $user;
+    }
+
+    /**
+     * @param string $token
+     * @return User|object|null
+     */
+    public function findByConfirmToken(string $token): ?User
+    {
+        return $this->repository->findOneBy(['confirmToken' => $token]);
+    }
+
+    /**
+     * @param string $token
+     * @return User|object|null
+     */
+    public function findByResetToken(string $token): ?User
+    {
+        return $this->repository->findOneBy(['resetToken.token' => $token]);
+    }
+
+    /**
+     * @param string $network
+     * @param string $identity
+     * @return bool
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function hasByNetworkIdentity(string $network, string $identity): bool
+    {
+        $result = $this->repository->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->innerJoin('t.network', 'n')
+            ->andWhere('n.network = :network and n.identity = :identity')
+            ->setParameter(':network', $network)
+            ->setParameter(':identity', $identity)
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $result > 0;
+    }
+
+    /**
+     * @param Email $email
+     * @return bool
+     * @throws NoResultException
+     * @throws NonUniqueResultException
+     */
+    public function hasByEmail(Email $email): bool
+    {
+        $result = $this->repository->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->andWhere('t.email = :email')
+            ->setParameter(':email', $email->getValue())
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        return $result > 0;
     }
 }

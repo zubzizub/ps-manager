@@ -32,3 +32,6 @@ services:
 
     App\Domain\Store\Service\Ps\PsInterface:
         class: App\Components\Ps\StoreApi\Collection
+
+    App\Domain\Auth\Repository\UserRepositoryInterface:
+        class: App\Infrastructure\User\Doctrine\UserRepository
