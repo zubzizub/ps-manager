@@ -9,19 +9,17 @@ use App\Domain\Auth\Entity\User\Id;
 use App\Domain\Auth\Entity\User\User;
 use App\Domain\Auth\Repository\UserRepositoryInterface;
 use App\Domain\EntityNotFoundException;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\NoResultException;
-use Doctrine\ORM\ORMException;
+use Doctrine\Persistence\ObjectRepository;
 
 class UserRepository implements UserRepositoryInterface
 {
-    private EntityManager $em;
+    private EntityManagerInterface $em;
+    private ObjectRepository $repository;
 
-    private EntityRepository $repository;
-
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
         $this->repository = $em->getRepository(User::class);
@@ -29,7 +27,6 @@ class UserRepository implements UserRepositoryInterface
 
     /**
      * @param User $user
-     * @throws ORMException
      */
     public function add(User $user): void
     {

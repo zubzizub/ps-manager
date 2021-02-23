@@ -35,3 +35,12 @@ services:
 
     App\Domain\Auth\Repository\UserRepositoryInterface:
         class: App\Infrastructure\User\Doctrine\UserRepository
+
+    App\Domain\Auth\ConfirmTokenSenderInterface:
+        class: App\Infrastructure\User\Service\ConfirmTokenSender
+
+    App\Domain\Auth\FlusherInterface:
+        class: App\Infrastructure\User\Flusher
+
+    App\Domain\Store\FlusherInterface:
+        class: App\Infrastructure\Store\Flusher

@@ -42,7 +42,7 @@ class User
 
     /**
      * @var string
-     * @Mapping\Column (type="string", length=16)
+     * @Mapping\Column (type="string", length=500)
      */
     private string $passwordHash;
 
@@ -75,7 +75,7 @@ class User
      * @Mapping\OneToMany(targetEntity="Network", mappedBy="user",
      *      orphanRemoval=true, cascade={"persist"})
      */
-    private ArrayCollection $networks;
+    private $networks;
 
     private function __construct(Id $id, DateTimeImmutable $date)
     {

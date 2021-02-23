@@ -6,7 +6,7 @@ namespace App\Domain\Auth\Service;
 
 use App\Domain\Auth\Entity\User\Email;
 
-interface ConfirmTokenSender
+interface ConfirmTokenSenderInterface
 {
     public function send(Email $email, string $token): void;
 }

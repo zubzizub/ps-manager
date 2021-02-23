@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Domain;
+namespace App\Infrastructure\User;
 
+use App\Domain\Auth\FlusherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
-class Flusher
+class Flusher implements FlusherInterface
 {
     private EntityManagerInterface $em;
 

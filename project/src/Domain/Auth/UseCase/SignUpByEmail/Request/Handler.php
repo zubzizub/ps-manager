@@ -9,7 +9,7 @@ use App\Domain\Auth\Entity\User\Id;
 use App\Domain\Auth\Entity\User\User;
 use App\Domain\Auth\FlusherInterface;
 use App\Domain\Auth\Repository\UserRepositoryInterface;
-use App\Domain\Auth\Service\ConfirmTokenSender;
+use App\Domain\Auth\Service\ConfirmTokenSenderInterface;
 use App\Domain\Auth\Service\PasswordHasher;
 use App\Domain\Auth\Service\SignUpConfirmTokenizer;
 use DateTimeImmutable;
@@ -21,14 +21,14 @@ class Handler
     private FlusherInterface $flusher;
     private PasswordHasher $hasher;
     private SignUpConfirmTokenizer $tokenizer;
-    private ConfirmTokenSender $tokenSender;
+    private ConfirmTokenSenderInterface $tokenSender;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
         FlusherInterface $flusher,
         PasswordHasher $hasher,
         SignUpConfirmTokenizer $tokenizer,
-        ConfirmTokenSender $tokenSender
+        ConfirmTokenSenderInterface $tokenSender
     ) {
         $this->userRepository = $userRepository;
         $this->flusher = $flusher;
