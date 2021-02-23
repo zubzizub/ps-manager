@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller\Store;
 
-use App\Domain\Flusher;
+use App\Domain\Auth\FlusherInterface;
 use App\Domain\Store\Entity\Game\Price;
 use App\Domain\Store\Repository\GameRepository;
 use App\Domain\Store\Service\Ps\PsInterface;
@@ -68,7 +68,7 @@ class GameController extends AbstractController
      * @param GameFetcher $fetcher
      * @param GameRepository $repository
      * @param PsInterface $parser
-     * @param Flusher $flusher
+     * @param FlusherInterface $flusher
      * @return Response
      * @throws Exception
      * @throws \Doctrine\ORM\EntityNotFoundException
@@ -77,7 +77,7 @@ class GameController extends AbstractController
         GameFetcher $fetcher,
         GameRepository $repository,
         PsInterface $parser,
-        Flusher $flusher
+        FlusherInterface $flusher
     ): Response
     {
         $games = $fetcher->allIds();
@@ -87,7 +87,7 @@ class GameController extends AbstractController
 
             $dataParser = $parser->getGameById($externalId);
             $game->setPrice(new Price($dataParser->price));
-            $game->setPriceDiscount(new Price($dataParser->priceDiscount));
+            $game->setPriceDiscount(new Price($dataParser->lowerPrice));
             $repository->add($game);
         }
 
@@ -104,7 +104,7 @@ class GameController extends AbstractController
      */
     public function showAll(PsInterface $parser): Response
     {
-        $games = $parser->getAllGames()->all();
+        $games = $parser->getAllGames(1)->all();
         return $this->render('app/store/game/show-all.html.twig', compact('games'));
     }
 }

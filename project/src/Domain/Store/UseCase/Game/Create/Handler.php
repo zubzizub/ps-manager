@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Domain\Store\UseCase\Game\Create;
 
-use App\Domain\Flusher;
 use App\Domain\Store\Entity\Game\Game;
 use App\Domain\Store\Entity\Game\Id;
 use App\Domain\Store\Entity\Game\Price;
+use App\Domain\Store\FlusherInterface;
 use App\Domain\Store\Repository\GameRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
@@ -17,9 +17,9 @@ use DomainException;
 class Handler
 {
     private GameRepository $repository;
-    private Flusher $flusher;
+    private FlusherInterface $flusher;
 
-    public function __construct(GameRepository $repository, Flusher $flusher)
+    public function __construct(GameRepository $repository, FlusherInterface $flusher)
     {
         $this->repository = $repository;
         $this->flusher = $flusher;
