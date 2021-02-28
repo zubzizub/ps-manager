@@ -95,16 +95,4 @@ class GameController extends AbstractController
 
         return $this->redirectToRoute('home');
     }
-
-    /**
-     * @Route("/game/show-all", name="showAllGames")
-     *
-     * @param PsInterface $parser
-     * @return Response
-     */
-    public function showAll(PsInterface $parser): Response
-    {
-        $games = $parser->getAllGames(1)->all();
-        return $this->render('app/store/game/show-all.html.twig', compact('games'));
-    }
 }
