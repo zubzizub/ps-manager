@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Auth\UseCase\Reset\Request;
 
 use App\Domain\Auth\Entity\User\Email;
-use App\Domain\Auth\FlusherInterface;
+use App\Domain\FlusherInterface;
 use App\Domain\Auth\Repository\UserRepositoryInterface;
 use App\Domain\Auth\Service\ResetTokenizer;
 use App\Domain\Auth\Service\ResetTokenSenderInterface;

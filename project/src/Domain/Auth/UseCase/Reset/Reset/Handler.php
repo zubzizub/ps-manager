@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Auth\UseCase\Reset\Reset;
 
-use App\Domain\Auth\FlusherInterface;
+use App\Domain\FlusherInterface;
 use App\Domain\Auth\Repository\UserRepositoryInterface;
 use App\Domain\Auth\Service\PasswordHasher;
 use DateTimeImmutable;

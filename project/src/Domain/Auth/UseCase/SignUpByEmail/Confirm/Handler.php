@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Domain\Auth\UseCase\SignUpByEmail\Confirm;
 
-use App\Domain\Flusher;
 use App\Domain\Auth\Repository\UserRepositoryInterface;
+use App\Domain\FlusherInterface;
 use DomainException;
 
 class Handler
 {
     private UserRepositoryInterface $userRepository;
-    private Flusher $flusher;
+    private FlusherInterface $flusher;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
-        Flusher $flusher
+        FlusherInterface $flusher
     ) {
         $this->userRepository = $userRepository;
         $this->flusher = $flusher;

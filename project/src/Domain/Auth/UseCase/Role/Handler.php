@@ -6,7 +6,7 @@ namespace App\Domain\Auth\UseCase\Role;
 
 use App\Domain\Auth\Entity\User\Id;
 use App\Domain\Auth\Entity\User\Role;
-use App\Domain\Auth\FlusherInterface;
+use App\Domain\FlusherInterface;
 use App\Domain\Auth\Repository\UserRepositoryInterface;
 
 class Handler

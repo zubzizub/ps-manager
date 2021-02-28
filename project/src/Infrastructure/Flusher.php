@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Store;
+namespace App\Infrastructure;
 
-use App\Domain\Store\FlusherInterface;
+use App\Domain\FlusherInterface;
 use Doctrine\ORM\EntityManagerInterface;
 
 class Flusher implements FlusherInterface

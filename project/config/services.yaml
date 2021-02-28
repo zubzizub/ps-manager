@@ -39,8 +39,5 @@ services:
     App\Domain\Auth\ConfirmTokenSenderInterface:
         class: App\Infrastructure\User\Service\ConfirmTokenSender
 
-    App\Domain\Auth\FlusherInterface:
-        class: App\Infrastructure\User\Flusher
-
-    App\Domain\Store\FlusherInterface:
-        class: App\Infrastructure\Store\Flusher
+    App\Domain\FlusherInterface:
+        class: App\Infrastructure\Flusher

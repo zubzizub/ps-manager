@@ -7,7 +7,7 @@ namespace App\Domain\Store\UseCase\Game\Create;
 use App\Domain\Store\Entity\Game\Game;
 use App\Domain\Store\Entity\Game\Id;
 use App\Domain\Store\Entity\Game\Price;
-use App\Domain\Store\FlusherInterface;
+use App\Domain\FlusherInterface;
 use App\Domain\Store\Repository\GameRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\NonUniqueResultException;
