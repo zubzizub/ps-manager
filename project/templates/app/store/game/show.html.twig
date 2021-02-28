@@ -3,9 +3,6 @@
 {% block title %}Games{% endblock %}
 
 {% block body %}
-    <form action="{{ path('gameUpdateAll') }}" method="post">
-        <button type="submit" class="btn btn-block btn-outline-primary">Update games</button>
-    </form>
     <table class="table">
         <thead>
         <tr>
@@ -22,7 +19,7 @@
                 <tr>
                     {% set counter = ( counter | default(0) ) + 1 %}
                     <th scope="row">{{ counter }}</th>
-                    <td><img src="{{ game.image_url }}" width='64' height='64' /></td>
+                    <td><img src="{{ game.image_url }}" width='64' height='64' alt=""/></td>
                     <td>{{ game.title }}</td>
                     <td>{{ game.price|number_format(2, '.', ',') }}</td>
                     <td>{{ game.price_discount ? game.price_discount|number_format(2, '.', ',') : '-' }}</td>

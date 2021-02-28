@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace App\Controller\Store;
 
-use App\Domain\Auth\FlusherInterface;
-use App\Domain\Store\Entity\Game\Price;
-use App\Domain\Store\Repository\GameRepository;
-use App\Domain\Store\Service\Ps\PsInterface;
 use App\Domain\Store\UseCase\Game\Create\Command;
-use App\Domain\Store\UseCase\Game\Create\Form;
 use App\Domain\Store\UseCase\Game\Create\Handler;
+use App\Infrastructure\Store\Game\Forms\CreateForm;
 use App\ReadModel\Store\Game\GameFetcher;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\NonUniqueResultException;
@@ -47,7 +43,7 @@ class GameController extends AbstractController
     {
         $command = new Command();
 
-        $form = $this->createForm(Form::class, $command);
+        $form = $this->createForm(CreateForm::class, $command);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -60,39 +56,5 @@ class GameController extends AbstractController
         }
 
         return $this->render('app/store/game/create.html.twig', ['form' => $form->createView()]);
-    }
-
-    /**
-     * @Route("/game/update-all", name="gameUpdateAll", methods={"POST"})
-     *
-     * @param GameFetcher $fetcher
-     * @param GameRepository $repository
-     * @param PsInterface $parser
-     * @param FlusherInterface $flusher
-     * @return Response
-     * @throws Exception
-     * @throws \Doctrine\ORM\EntityNotFoundException
-     */
-    public function updateAll(
-        GameFetcher $fetcher,
-        GameRepository $repository,
-        PsInterface $parser,
-        FlusherInterface $flusher
-    ): Response
-    {
-        $games = $fetcher->allIds();
-
-        foreach ($games as $key => $externalId) {
-            $game = $repository->getByExternalId($externalId);
-
-            $dataParser = $parser->getGameById($externalId);
-            $game->setPrice(new Price($dataParser->price));
-            $game->setPriceDiscount(new Price($dataParser->lowerPrice));
-            $repository->add($game);
-        }
-
-        $flusher->flush();
-
-        return $this->redirectToRoute('home');
     }
 }
