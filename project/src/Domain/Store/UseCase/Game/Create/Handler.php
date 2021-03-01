@@ -41,10 +41,8 @@ class Handler
             $command->externalId,
             $command->title,
             $command->description,
-            new Price($command->price),
-            new Price($command->lowerPrice),
+            new Price($command->price, $command->lowerPrice, $command->discountEndDate),
             $command->imageUrl,
-            $command->discountEndDate,
             new DateTimeImmutable()
         );
 

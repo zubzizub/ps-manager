@@ -29,43 +29,36 @@ class User
     private Id $id;
 
     /**
-     * @var Email|null
      * @Mapping\Column (type="auth_user_email", nullable=true)
      */
     private ?Email $email = null;
 
     /**
-     * @var string
      * @Mapping\Column (type="string", length=16)
      */
     private string $status;
 
     /**
-     * @var string
      * @Mapping\Column (type="string", length=500)
      */
     private string $passwordHash;
 
     /**
-     * @var ResetToken|null
      * @Mapping\Embedded(class="ResetToken", columnPrefix="reset_token_")
      */
     private ?ResetToken $resetToken = null;
 
     /**
-     * @var string|null
      * @Mapping\Column (type="string", name="confirm_token", nullable=true)
      */
     private ?string $confirmToken = null;
 
     /**
-     * @var DateTimeImmutable
      * @Mapping\Column (type="date_immutable")
      */
     private DateTimeImmutable $date;
 
     /**
-     * @var Role
      * @Mapping\Column (type="auth_user_role")
      */
     private Role $role;
