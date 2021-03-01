@@ -48,7 +48,7 @@ php-in:
 cache-clear:
 	docker-compose run --rm php-cli php bin/console cache:clear
 
-project-test:
+test:
 	docker-compose run --rm php-cli php bin/phpunit
 
 migrations:
