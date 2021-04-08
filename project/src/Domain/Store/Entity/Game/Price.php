@@ -30,7 +30,7 @@ class Price
     public function __construct(
         int $price,
         int $lowerPrice,
-        DateTimeImmutable $discountEndDate
+        ?DateTimeImmutable $discountEndDate
     ) {
         $this->price = $price;
         $this->lowerPrice = $lowerPrice;

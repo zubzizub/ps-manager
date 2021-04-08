@@ -43,7 +43,7 @@ class Parser implements PsInterface
             $parseDto->title = $game->name;
             $parseDto->description = $game->name;
             $parseDto->price = $this->handlePrice($game->price) ?? 0;
-            $parseDto->priceDiscount = $this->handlePrice($game->price) ?? 0;
+            $parseDto->lowerPrice = $this->handlePrice($game->price) ?? 0;
             $parseDto->version = 'ps4';
             $parseDto->discountEndDate = new DateTimeImmutable();
             $psCollection[] = $parseDto;

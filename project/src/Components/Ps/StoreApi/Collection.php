@@ -64,7 +64,7 @@ class Collection implements PsInterface
      */
     public function getAllGames(int $startPage): PsGamesCollectionInterface
     {
-        $gamesFromPs = (new Games('ru', 'ru'))->onlyOnPlaystation($startPage, 500);
+        $gamesFromPs = (new Games('ru', 'ru'))->fullGames($startPage, 500);
         $psGameCollection = new PsGamesCollection();
 
         foreach ($gamesFromPs as $game) {
